@@ -1,0 +1,25 @@
+# Longhorn Helm values
+# S3 backup target (MinIO or another S3-compatible service)
+
+defaultSettings:
+  # Default data path for Longhorn volume replicas on each node
+  defaultDataPath: /var/lib/longhorn
+
+  # Replica count for new volumes (adjust to your node count)
+  defaultReplicaCount: 2
+
+  # S3 backup target (edit bucket/region/prefix as needed)
+  # Format: s3://<bucket>@<region>/<optional-prefix>
+  backupTarget: s3://longhorn-backups@us-east-1/
+
+  # Secret containing S3 credentials + endpoint
+  backupTargetCredentialSecret: longhorn-backup-credentials
+
+  # How often Longhorn polls the backupstore (seconds)
+  backupstorePollInterval: 300
+
+service:
+  ui:
+    annotations:
+      tailscale.com/expose: "true"
+      tailscale.com/hostname: "longhorn"
