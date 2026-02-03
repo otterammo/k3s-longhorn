@@ -1,6 +1,15 @@
 # Longhorn Helm values
 # S3 backup target (MinIO or another S3-compatible service)
 
+serviceAccount:
+  # Let the chart manage the ServiceAccount.
+  create: true
+  name: longhorn-service-account
+
+preUpgradeChecker:
+  # Disable the pre-upgrade checker job for ArgoCD/GitOps syncs.
+  jobEnabled: false
+
 defaultSettings:
   # Default data path for Longhorn volume replicas on each node
   defaultDataPath: /var/lib/longhorn
